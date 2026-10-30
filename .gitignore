@@ -3,3 +3,13 @@ __pycache__/
 db.sqlite3
 *.rar
 ip.txt
+
+# Environment files and keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+venv/
+media/
