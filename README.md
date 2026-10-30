@@ -75,4 +75,4 @@ This is an experiment, not production code. The views run the image scripts as s
 
 ## License and author
 
-[MIT](LICENSE). Built by Ahmed Ibrahim Hussien ([a-3isa](https://github.com/a-3isa)); `style_transfer/` is derived from Prism (MIT).
+Built by Ahmed Ibrahim Hussien ([a-3isa](https://github.com/a-3isa)). [`LICENSE`](LICENSE) is Prism's MIT licence (copyright Moritz Thüning), which covers `style_transfer/`, the code derived from it.
