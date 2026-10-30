@@ -1,5 +1,7 @@
 # Deep-World
 
+[![CI](https://github.com/a-3isa/Deep-World/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/a-3isa/Deep-World/actions/workflows/ci.yml)
+
 A Django REST API that applies image effects with neural networks: DeepDream-style transformations and artistic style transfer.
 
 ## Architecture
