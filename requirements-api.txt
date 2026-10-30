@@ -2,5 +2,5 @@
 # tensorflow and torch (see requirments.sh).
 Django>=5.2.17
 djangorestframework>=3.18.2
-Pillow>=10
+Pillow>=12.3.0
 requests>=2.32
