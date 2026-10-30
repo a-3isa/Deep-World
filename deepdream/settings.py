@@ -20,14 +20,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'REDACTED_DJANGO_SECRET_KEY'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']  # required; see .env.example
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG') == '1'
 
-ip=open('ip.txt','r').readline()
-print(ip)
-ALLOWED_HOSTS = [ip]
+# Hosts from DJANGO_ALLOWED_HOSTS (comma-separated), plus the server address
+# that ip_puller.py writes to ip.txt when that file exists.
+ALLOWED_HOSTS = [
+    h.strip()
+    for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    if h.strip()
+]
+if os.path.exists(BASE_DIR / 'ip.txt'):
+    ALLOWED_HOSTS.append(open(BASE_DIR / 'ip.txt').readline().strip())
 
 
 # Application definition
