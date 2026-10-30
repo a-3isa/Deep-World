@@ -1,6 +1,6 @@
 # The Django API. The DeepDream and style-transfer scripts also need
 # tensorflow and torch (see requirments.sh).
-Django>=5.2.17
+Django>=5.2.18
 djangorestframework>=3.18.2
 Pillow>=10
 requests>=2.32
