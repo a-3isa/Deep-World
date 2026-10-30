@@ -40,4 +40,6 @@ baseline.py      TensorFlow style model runner
 
 ## Notes
 
-This is an experiment, not production code: the views shell out to scripts with `os.system` and read the host address from `ip.txt`. Run it only on a trusted network.
+This is an experiment, not production code: the views shell out to scripts with `os.system` and build result URLs from the host address in `ip.txt`. Run it only on a trusted network.
+
+`ip.txt` is not committed. Create it with your machine's address, or run `ip_puller.py`, which writes your public IP to `ip.txt` and, if `DEPLOY_HOST` is set (for example `user@server`), copies it there with `scp` using your SSH key. Optional: `DEPLOY_PATH` (default `~/deepdream/`).

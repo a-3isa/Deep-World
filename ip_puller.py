@@ -1,36 +1,39 @@
-from requests import get
-import urllib.request
+"""Write this machine's public IP to ip.txt and optionally copy it to a server.
+
+Set DEPLOY_HOST (e.g. user@server) to copy ip.txt with scp after each change.
+Authentication uses your SSH key; no passwords are stored here.
+"""
+import os
+import subprocess
 import time
-import os 
+
+from requests import get
+
+DEPLOY_HOST = os.environ.get("DEPLOY_HOST")
+DEPLOY_PATH = os.environ.get("DEPLOY_PATH", "~/deepdream/")
 
 
-def connect(host='http://google.com'):
-    try:
-        urllib.request.urlopen(host) #Python 3.x
-        return True
-    except:
-        return False
+def public_ip():
+    return get("https://api.ipify.org", timeout=10).text.strip()
 
-ip = get('https://api.ipify.org').text
-with open('ip.txt', 'w') as f:
-    f.write(f'{ip}')
-os.system("pscp -pw REDACTED ip.txt debian@SERVER_IP:/home/debian/deepdream/")
-print(f' ip : {ip}')
+
+def publish(ip):
+    with open("ip.txt", "w") as f:
+        f.write(ip)
+    if DEPLOY_HOST:
+        subprocess.run(["scp", "ip.txt", f"{DEPLOY_HOST}:{DEPLOY_PATH}"], check=False)
+    print(f"ip: {ip}")
+
+
+ip = public_ip()
+publish(ip)
 
 while True:
-	try :
-		if ip != get('https://api.ipify.org').text :
-
-# 		ip = get('https://api.ipify.org').text
-			ip = get('https://api.ipify.org').text
-			with open('ip.txt', 'w') as f:
-				f.write(f'{ip}')
-			os.system("pscp -pw REDACTED ip.txt debian@SERVER_IP:/home/debian/deepdream/")
-			print(f'new ip : {ip}')
-			
-	except:
-		print('Network Error')
-		time.sleep(5)
-
-# # scp <source> <destination>
-
+    try:
+        current = public_ip()
+        if current != ip:
+            ip = current
+            publish(ip)
+    except Exception:
+        print("Network error")
+    time.sleep(5)
